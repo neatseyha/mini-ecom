@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} - TechShop{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Product Details</h1>
+    </div>
+</section>
+
+<section class="product-detail-section">
+    <div class="container">
+        <div class="product-detail-container">
+            <div class="product-detail-image">
+                <img src="{{ product.image }}" alt="{{ product.name }}">
+            </div>
+
+            <div class="product-detail-info">
+                <h1>{{ product.name }}</h1>
+                <p class="product-detail-price">${{ "%.2f"|format(product.price) }}</p>
+
+                <div class="product-detail-description">
+                    <h3>Description</h3>
+                    <p>{{ product.description }}</p>
+                </div>
+
+                <div class="product-detail-features">
+                    <h3>Features</h3>
+                    <ul>
+                        <li>✓ High quality materials</li>
+                        <li>✓ Fast shipping available</li>
+                        <li>✓ 30-day money-back guarantee</li>
+                        <li>✓ 1-year warranty included</li>
+                    </ul>
+                </div>
+
+                <div class="product-detail-actions">
+                    <button class="btn btn-primary add-to-cart" data-product-id="{{ product.id }}">
+                        Add to Cart
+                    </button>
+                    <a href="{{ url_for('shop') }}" class="btn btn-secondary">Back to Shop</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="related-products">
+            <h2>You May Also Like</h2>
+            <div class="product-grid">
+                {% for prod in related_products %}
+                <div class="product-card">
+                    <a href="{{ url_for('product_detail', product_id=prod.id) }}">
+                        <img src="{{ prod.image }}" alt="{{ prod.name }}">
+                    </a>
+                    <div class="product-info">
+                        <h3><a href="{{ url_for('product_detail', product_id=prod.id) }}">{{ prod.name }}</a></h3>
+                        <p class="product-description">{{ prod.description }}</p>
+                        <p class="price">${{ "%.2f"|format(prod.price) }}</p>
+                        <button class="btn btn-primary add-to-cart" data-product-id="{{ prod.id }}">Add to Cart</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+{% endblock %}

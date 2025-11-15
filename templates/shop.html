@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Shop - TechShop{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Shop</h1>
+        <p>Browse our collection of quality electronics</p>
+    </div>
+</section>
+
+<section class="shop-section">
+    <div class="container">
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product-card">
+                <a href="{{ url_for('product_detail', product_id=product.id) }}">
+                    <img src="{{ product.image }}" alt="{{ product.name }}">
+                </a>
+                <div class="product-info">
+                    <h3><a href="{{ url_for('product_detail', product_id=product.id) }}">{{ product.name }}</a></h3>
+                    <p class="product-description">{{ product.description }}</p>
+                    <p class="price">${{ "%.2f"|format(product.price) }}</p>
+                    <button class="btn btn-primary add-to-cart" data-product-id="{{ product.id }}">Add to Cart</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

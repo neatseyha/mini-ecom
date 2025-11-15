@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Home - TechShop{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Welcome to TechShop</h1>
+            <p>Discover the latest electronics and gadgets</p>
+            <a href="{{ url_for('shop') }}" class="btn btn-primary">Shop Now</a>
+        </div>
+    </div>
+</section>
+
+<section class="featured-products">
+    <div class="container">
+        <h2>Featured Products</h2>
+        <div class="product-grid">
+            {% for product in featured_products %}
+            <div class="product-card">
+                <a href="{{ url_for('product_detail', product_id=product.id) }}">
+                    <img src="{{ product.image }}" alt="{{ product.name }}">
+                </a>
+                <div class="product-info">
+                    <h3><a href="{{ url_for('product_detail', product_id=product.id) }}">{{ product.name }}</a></h3>
+                    <p class="product-description">{{ product.description }}</p>
+                    <p class="price">${{ "%.2f"|format(product.price) }}</p>
+                    <button class="btn btn-primary add-to-cart" data-product-id="{{ product.id }}">Add to Cart</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="{{ url_for('shop') }}" class="btn btn-secondary">View All Products</a>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>🚚 Free Shipping</h3>
+                <p>On orders over $100</p>
+            </div>
+            <div class="feature-item">
+                <h3>🔒 Secure Payment</h3>
+                <p>100% secure transactions</p>
+            </div>
+            <div class="feature-item">
+                <h3>↩️ Easy Returns</h3>
+                <p>30-day return policy</p>
+            </div>
+            <div class="feature-item">
+                <h3>💬 24/7 Support</h3>
+                <p>Always here to help</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
